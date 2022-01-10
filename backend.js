@@ -66,6 +66,16 @@ app.get('/users/:id', (req, res) => {
     }   
 });
 
+app.delete('/users/:id', (req, res) => {
+    const id = req.params.id;
+    deleteUser(id);
+    res.end();
+});
+
+function deleteUser(id){
+    users.users_list = users.users_list.filter((user) => user.id != id);
+}
+
 const findUserById = (id) => {
     return users['users_list'].filter((user) => user['id'] === id);
 }
