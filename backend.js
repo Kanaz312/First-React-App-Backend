@@ -42,17 +42,31 @@ app.get('/', (req, res) => {
 
 app.get('/users', (req, res) => {
     const name = req.query.name;
-    if (name != undefined) {
-        let result = findUserByName(name);
-        result = {users_list: result};
-        res.send(result);
-    } else {
+    const job = req.query.job;
+    if (name == undefined && job == undefined) {
         res.send(users);
+    } else {
+        let result = users.users_list;
+        if (name != undefined) {
+            result = findUserByName(result, name);
+        }
+        if (job != undefined) {
+            result = findUserByJob(result, job);
+        }
+        if (result.length == 0){
+            res.status(404).send("No users meet criteria.");
+        } else {
+            res.send(result);
+        }
     }
 });
 
-const findUserByName = (name) => {
-    return users['users_list'].filter((user) => user['name'] === name);
+const findUserByName = (users_list, name) => {
+    return users_list.filter((user) => user['name'] === name);
+}
+
+const findUserByJob = (users_list, job) => {
+    return users_list.filter((user) => user.job === job);
 }
 
 app.get('/users/:id', (req, res) => {
