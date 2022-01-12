@@ -35,6 +35,8 @@ const users = {
     ]
  }
 
+app.use(cors());
+
 app.use(express.json());
 
 app.get('/', (req, res) => {
@@ -108,5 +110,3 @@ function addUser(user) {
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
 });    
-
-app.use(cors());
