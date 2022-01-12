@@ -2,6 +2,7 @@ const { response } = require('express');
 const express = require('express');
 const app = express();
 const port = 5000;
+const cors = require('cors');
 
 const users = { 
     users_list :
@@ -107,3 +108,5 @@ function addUser(user) {
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
 });    
+
+app.use(cors());
