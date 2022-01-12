@@ -100,10 +100,11 @@ const findUserById = (id) => {
 app.post('/users', (req, res) => {
     const userToAdd = req.body;
     addUser(userToAdd);
-    res.status(200).end();
+    res.status(201).send(userToAdd);
 });
 
 function addUser(user) {
+    user['id'] = Math.floor(Math.random() * 10000).toString();
     users['users_list'].push(user);
 }
 
